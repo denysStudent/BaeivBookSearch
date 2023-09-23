@@ -42,7 +42,7 @@ namespace BookSearch.Controllers
 
             if (TempData["title"] == null)
             {
-                TempData["title"] = "White Fang";
+                TempData["title"] = "Fang";
             }
             if (TempData["author"] == null)
             {

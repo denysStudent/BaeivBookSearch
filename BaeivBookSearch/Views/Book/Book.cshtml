@@ -1,80 +1,137 @@
-﻿@model BookSearch.Models.BookModel
-@{
+﻿@{
     ViewBag.Title = "BookSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
+<style>
+    div {
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        width: 100%;
+    }
+    .one {
+        background-color:lightgreen;
+        float: left;
+        width: 50%;
+    }
+    .two {
+        background-color: lightgoldenrodyellow;
+        float: left;
+        width: 50%;
+    }
+</style>
 
 <div>
     <h1>Book Search</h1>
-    <hr />
-    <dl class="dl-horizontal">
-    </dl>
 </div>
-<p>
-</p>
 
 <div class="col-md-12">
     <form action="" id="form1" method="POST">
         <h3>
 
-            <input type="text" id="title" placeholder="Enter book Title" name="title" />
-            <input type="text" id="author" placeholder="Enter book Author" name="author" />
-            <input type="submit" value="Submit">
+            <input type="text" id="title" placeholder="Enter book title" name="title" /> <br><br>
+            <input type="text" id="author" placeholder="Enter book author" name="author" /> <br><br>
+            <input type="submit" value="Find book">
             <br>
         </h3>
     </form>
 </div>
 
+<h2>Books Found: </h2>
+<body>
+    <div class="one">
+        <div class="col-md-12">
+            <img id="bookSearch11" alt="img" style="width:192px;height:198px;">
+        </div>
+        <br>
+        <div class="col-md-12">
+            <b>Title:</b> <span id="bookSearch1"></span>
+        </div>
 
-<div class="col-md-12">
-    <img id="bookSearch11" alt="img" style="width:84px;height:48px;">
-</div>
+        <div class="col-md-12">
+            <b>Author:</b> <span id="bookSearch2"></span>
+        </div>
 
-<div class="col-md-12">
-    Title: <span id="bookSearch1"></span>
-</div>
+        <div class="col-md-12">
+            <b>Publisher:</b> <span id="bookSearch3"></span>
+        </div>
 
-<div class="col-md-12">
-    Author: <span id="bookSearch2"></span>
-</div>
+        <div class="col-md-12">
+            <b>Description:</b> <span id="bookSearch4"></span>
+        </div>
 
-<div class="col-md-12">
-    Publisher: <span id="bookSearch3"></span>
-</div>
+        <div class="col-md-12">
+            <b>Pages:</b> <span id="bookSearch5"></span>
+        </div>
+    </div>
 
-<div class="col-md-12">
-    Description: <span id="bookSearch4"></span>
-</div>
+    <div class="two">
+        <div class="col-md-12">
+            <img id="bookSearch12" alt="img" style="width:192px;height:198px;">
+        </div>
+        <br>
+        <div class="col-md-12">
+            <b>Title:</b> <span id="bookSearch6"></span>
+        </div>
 
-<div class="col-md-12">
-    Pages: <span id="bookSearch5"></span>
-</div>
+        <div class="col-md-12">
+            <b>Author:</b> <span id="bookSearch7"></span>
+        </div>
 
+        <div class="col-md-12">
+            <b>Publisher:</b> <span id="bookSearch8"></span>
+        </div>
+
+        <div class="col-md-12">
+            <b>Description:</b> <span id="bookSearch9"></span>
+        </div>
+
+        <div class="col-md-12">
+            <b>Pages:</b> <span id="bookSearch10"></span>
+        </div>
+    </div>
+</body>
+
+<br>
 
 <script>
 
-    $(document).ready(function ()
+$(document).ready(function ()
+{
+    $.get("@Url.Action("SearchBook", "Book")", function (response)
     {
-        $.get("@Url.Action("SearchBook", "Book")", function (response)
-        {
-                 //response
-            console.log(response);
+                //response
+        console.log(response);
 
-                 var myJSON = JSON.stringify(response);
+                var myJSON = JSON.stringify(response);
 
 
-            var id = JSON.parse(myJSON).items[0].id
-            var imagUrl1 = "http://books.google.com/books/content?id=" + id + "&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-            document.getElementById("bookSearch11").src = imagUrl1;
+        var id = JSON.parse(myJSON).items[0].id
+        var imagUrl1 = "http://books.google.com/books/content?id=" + id + "&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        document.getElementById("bookSearch11").src = imagUrl1;
 
-            document.getElementById("bookSearch1").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.title;
-            document.getElementById("bookSearch2").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.authors;
-            document.getElementById("bookSearch3").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.publisher;
-            document.getElementById("bookSearch4").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.description;
-            document.getElementById("bookSearch5").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.pageCount;
+        document.getElementById("bookSearch1").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.title;
+        document.getElementById("bookSearch2").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.authors;
+        document.getElementById("bookSearch3").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.publisher;
+        document.getElementById("bookSearch4").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.description;
+        document.getElementById("bookSearch5").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.pageCount;
 
 
-        });
+        var id = JSON.parse(myJSON).items[1].id
+        var imagUrl1 = "http://books.google.com/books/content?id=" + id + "&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        document.getElementById("bookSearch12").src = imagUrl1;
+
+        document.getElementById("bookSearch6").innerHTML = JSON.parse(myJSON).items[1].volumeInfo.title;
+        document.getElementById("bookSearch7").innerHTML = JSON.parse(myJSON).items[2].volumeInfo.authors;
+        document.getElementById("bookSearch8").innerHTML = JSON.parse(myJSON).items[3].volumeInfo.publisher;
+        document.getElementById("bookSearch9").innerHTML = JSON.parse(myJSON).items[4].volumeInfo.description;
+        document.getElementById("bookSearch10").innerHTML = JSON.parse(myJSON).items[5].volumeInfo.pageCount;
+
+
     });
+});
 
 </script>
 
