@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Web.WebPages;
-using static System.Net.Mime.MediaTypeNames;
 using BookSearch;
 using System.Web.Mvc;
 using BookSearch.Controllers;
