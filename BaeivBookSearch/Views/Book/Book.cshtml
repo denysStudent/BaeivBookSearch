@@ -1,0 +1,80 @@
+﻿@model BookSearch.Models.BookModel
+@{
+    ViewBag.Title = "BookSearch";
+}
+
+<div>
+    <h1>Book Search</h1>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<p>
+</p>
+
+<div class="col-md-12">
+    <form action="" id="form1" method="POST">
+        <h3>
+
+            <input type="text" id="title" placeholder="Enter book Title" name="title" />
+            <input type="text" id="author" placeholder="Enter book Author" name="author" />
+            <input type="submit" value="Submit">
+            <br>
+        </h3>
+    </form>
+</div>
+
+
+<div class="col-md-12">
+    <img id="bookSearch11" alt="img" style="width:84px;height:48px;">
+</div>
+
+<div class="col-md-12">
+    Title: <span id="bookSearch1"></span>
+</div>
+
+<div class="col-md-12">
+    Author: <span id="bookSearch2"></span>
+</div>
+
+<div class="col-md-12">
+    Publisher: <span id="bookSearch3"></span>
+</div>
+
+<div class="col-md-12">
+    Description: <span id="bookSearch4"></span>
+</div>
+
+<div class="col-md-12">
+    Pages: <span id="bookSearch5"></span>
+</div>
+
+
+<script>
+
+    $(document).ready(function ()
+    {
+        $.get("@Url.Action("SearchBook", "Book")", function (response)
+        {
+                 //response
+            console.log(response);
+
+                 var myJSON = JSON.stringify(response);
+
+
+            var id = JSON.parse(myJSON).items[0].id
+            var imagUrl1 = "http://books.google.com/books/content?id=" + id + "&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+            document.getElementById("bookSearch11").src = imagUrl1;
+
+            document.getElementById("bookSearch1").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.title;
+            document.getElementById("bookSearch2").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.authors;
+            document.getElementById("bookSearch3").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.publisher;
+            document.getElementById("bookSearch4").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.description;
+            document.getElementById("bookSearch5").innerHTML = JSON.parse(myJSON).items[0].volumeInfo.pageCount;
+
+
+        });
+    });
+
+</script>
+
